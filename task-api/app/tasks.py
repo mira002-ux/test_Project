@@ -7,20 +7,23 @@ class Task(BaseModel):
     id: int
     title: str = Field(..., min_length=1, max_length=200)
     completed: bool = False
+    priority: str = "medium"
 
 
 class TaskCreate(BaseModel):
     title: str = Field(..., min_length=1, max_length=200)
+    priority: str = "medium"
 
 
 class TaskUpdate(BaseModel):
     title: Optional[str] = Field(default=None, min_length=1, max_length=200)
     completed: Optional[bool] = None
+    priority: Optional[str] = None
 
 
 TASKS: List[Task] = [
-    Task(id=1, title="Learn FastAPI", completed=False),
-    Task(id=2, title="Build a demo app", completed=True),
+    Task(id=1, title="Learn FastAPI", completed=False, priority="high"),
+    Task(id=2, title="Build a demo app", completed=True, priority="low"),
 ]
 
 
@@ -37,7 +40,7 @@ def get_task(task_id: int) -> Optional[Task]:
 
 def create_task(data: TaskCreate) -> Task:
     task_id = max((task.id for task in TASKS), default=0) + 1
-    task = Task(id=task_id, title=data.title, completed=False)
+    task = Task(id=task_id, title=data.title, completed=False, priority=data.priority)
     TASKS.append(task)
     return task
 
@@ -51,6 +54,8 @@ def update_task(task_id: int, data: TaskUpdate) -> Optional[Task]:
         task.title = data.title
     if data.completed is not None:
         task.completed = data.completed
+    if data.priority is not None:
+        task.priority = data.priority
     return task
 
 

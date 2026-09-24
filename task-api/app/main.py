@@ -7,7 +7,7 @@ from app.tasks import Task, TaskCreate, TaskUpdate, create_task, delete_task, ge
 app = FastAPI(title="Task API", version="1.0.0")
 
 
-@app.get("/tasks", response_model=List[Task])
+@app.get("/items", response_model=List[Task])
 def get_tasks():
     return list_tasks()
 
