@@ -25,7 +25,7 @@ def create_new_task(task: TaskCreate):
     return create_task(task)
 
 
-@app.put("/tasks/{task_id}", response_model=Task)
+@app.patch("/tasks/{task_id}", response_model=Task)
 def update_existing_task(task_id: int, task: TaskUpdate):
     updated = update_task(task_id, task)
     if updated is None:

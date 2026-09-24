@@ -8,22 +8,25 @@ class Task(BaseModel):
     title: str = Field(..., min_length=1, max_length=200)
     completed: bool = False
     priority: str = "medium"
+    status: str = "new"
 
 
 class TaskCreate(BaseModel):
     title: str = Field(..., min_length=1, max_length=200)
     priority: str = "medium"
+    status: str = "new"
 
 
 class TaskUpdate(BaseModel):
     title: Optional[str] = Field(default=None, min_length=1, max_length=200)
     completed: Optional[bool] = None
     priority: Optional[str] = None
+    status: Optional[str] = None
 
 
 TASKS: List[Task] = [
-    Task(id=1, title="Learn FastAPI", completed=False, priority="high"),
-    Task(id=2, title="Build a demo app", completed=True, priority="low"),
+    Task(id=1, title="Learn FastAPI", completed=False, priority="high", status="in-progress"),
+    Task(id=2, title="Build a demo app", completed=True, priority="low", status="done"),
 ]
 
 
