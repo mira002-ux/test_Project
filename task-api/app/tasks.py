@@ -43,7 +43,13 @@ def get_task(task_id: int) -> Optional[Task]:
 
 def create_task(data: TaskCreate) -> Task:
     task_id = max((task.id for task in TASKS), default=0) + 1
-    task = Task(id=task_id, title=data.title, completed=False, priority=data.priority)
+    task = Task(
+        id=task_id,
+        title=data.title,
+        completed=False,
+        priority=data.priority,
+        status=data.status,
+    )
     TASKS.append(task)
     return task
 
@@ -59,6 +65,8 @@ def update_task(task_id: int, data: TaskUpdate) -> Optional[Task]:
         task.completed = data.completed
     if data.priority is not None:
         task.priority = data.priority
+    if data.status is not None:
+        task.status = data.status
     return task
 
 
