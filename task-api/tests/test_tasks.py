@@ -43,6 +43,13 @@ def test_update_task():
     assert task["completed"] is True
 
 
+def test_create_task_strips_whitespace_from_title():
+    response = client.post("/tasks", json={"title": "  Write tests  "})
+
+    assert response.status_code == 201
+    assert response.json()["title"] == "Write tests"
+
+
 def test_delete_task():
     create_response = client.post("/tasks", json={"title": "Delete me"})
     task_id = create_response.json()["id"]
