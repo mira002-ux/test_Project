@@ -1,6 +1,6 @@
 from typing import Dict, List, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class Task(BaseModel):
@@ -10,11 +10,27 @@ class Task(BaseModel):
     priority: str = "medium"
     status: str = "new"
 
+    @field_validator("title")
+    @classmethod
+    def normalize_title(cls, value: str) -> str:
+        cleaned = value.strip()
+        if not cleaned:
+            raise ValueError("Title cannot be empty")
+        return cleaned
+
 
 class TaskCreate(BaseModel):
     title: str = Field(..., min_length=1, max_length=200)
     priority: str = "medium"
     status: str = "new"
+
+    @field_validator("title")
+    @classmethod
+    def normalize_title(cls, value: str) -> str:
+        cleaned = value.strip()
+        if not cleaned:
+            raise ValueError("Title cannot be empty")
+        return cleaned
 
 
 class TaskUpdate(BaseModel):
@@ -22,6 +38,16 @@ class TaskUpdate(BaseModel):
     completed: Optional[bool] = None
     priority: Optional[str] = None
     status: Optional[str] = None
+
+    @field_validator("title")
+    @classmethod
+    def normalize_title(cls, value: Optional[str]) -> Optional[str]:
+        if value is None:
+            return None
+        cleaned = value.strip()
+        if not cleaned:
+            raise ValueError("Title cannot be empty")
+        return cleaned
 
 
 TASKS: List[Task] = [

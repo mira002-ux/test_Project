@@ -36,7 +36,7 @@ To create a task, send a `POST` request to `/tasks` with a JSON body like:
 }
 ```
 
-The API creates a new task and assigns it the next available numeric `id`.
+The API creates a new task and assigns it the next available numeric `id`. Title values are trimmed before saving, so leading and trailing whitespace is removed automatically.
 
 ## Updating a task
 
@@ -51,7 +51,7 @@ To update an existing task, send a `PUT` request to `/tasks/{task_id}` with a JS
 }
 ```
 
-- If `title` is provided, it replaces the existing task title.
+- If `title` is provided, it replaces the existing task title after trimming surrounding whitespace.
 - If `completed` is provided, it updates the completion status.
 - If `priority` or `status` is provided, those values are updated as well.
 
