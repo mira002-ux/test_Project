@@ -38,6 +38,7 @@ http://localhost:8000/docs
 - `GET /tasks/{task_id}`
 - `POST /tasks`
 - `PUT /tasks/{task_id}`
+- `PATCH /tasks/{task_id}`
 - `DELETE /tasks/{task_id}`
 
 ## Example requests
@@ -65,9 +66,9 @@ curl -X POST http://localhost:8000/tasks \
 ### Update a task
 
 ```bash
-curl -X PUT http://localhost:8000/tasks/1 \
+curl -X PATCH http://localhost:8000/tasks/1 \
   -H "Content-Type: application/json" \
-  -d '{"title":"Learn FastAPI and Pydantic","completed":true}'
+  -d '{"title":"Learn FastAPI and Pydantic","completed":true,"priority":"high","status":"done"}'
 ```
 
 ### Delete a task

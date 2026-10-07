@@ -28,14 +28,16 @@ Response example:
   {
     "id": 1,
     "title": "Learn FastAPI",
-    "completed": false
+    "completed": false,
+    "priority": "high",
+    "status": "in-progress"
   }
 ]
 ```
 
 Behavior:
 - Returns an array of task objects.
-- Each task includes an `id`, `title`, and `completed` value.
+- Each task includes an `id`, `title`, `completed`, `priority`, and `status` value.
 
 ### GET /tasks/{task_id}
 Returns a single task by its identifier.
@@ -52,7 +54,9 @@ Response example:
 {
   "id": 1,
   "title": "Learn FastAPI",
-  "completed": false
+  "completed": false,
+  "priority": "high",
+  "status": "in-progress"
 }
 ```
 
@@ -66,7 +70,9 @@ Request body:
 
 ```json
 {
-  "title": "Learn GitHub API"
+  "title": "Learn GitHub API",
+  "priority": "medium",
+  "status": "new"
 }
 ```
 
@@ -76,23 +82,29 @@ Response example:
 {
   "id": 3,
   "title": "Learn GitHub API",
-  "completed": false
+  "completed": false,
+  "priority": "medium",
+  "status": "new"
 }
 ```
 
 Behavior:
 - Adds a task with a new numeric `id`.
-- The new task is created with `completed: false`.
+- The new task is created with `completed: false` and default `priority`/`status` values unless supplied.
 
 ### PUT /tasks/{task_id}
 Updates an existing task.
+
+The API also supports `PATCH /tasks/{task_id}` for partial updates.
 
 Request body:
 
 ```json
 {
   "title": "Learn FastAPI and Pydantic",
-  "completed": true
+  "completed": true,
+  "priority": "high",
+  "status": "done"
 }
 ```
 
@@ -102,7 +114,9 @@ Response example:
 {
   "id": 1,
   "title": "Learn FastAPI and Pydantic",
-  "completed": true
+  "completed": true,
+  "priority": "high",
+  "status": "done"
 }
 ```
 

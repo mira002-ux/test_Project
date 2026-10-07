@@ -10,7 +10,9 @@ Each task has the following fields:
 {
   "id": 1,
   "title": "Learn FastAPI",
-  "completed": false
+  "completed": false,
+  "priority": "high",
+  "status": "in-progress"
 }
 ```
 
@@ -19,6 +21,8 @@ Each task has the following fields:
 - `id`: Unique numeric identifier for the task.
 - `title`: Short human-readable title or description.
 - `completed`: Boolean value indicating whether the task has been finished.
+- `priority`: Priority level such as `low`, `medium`, or `high`.
+- `status`: Workflow state such as `new`, `in-progress`, or `done`.
 
 ## Creating a task
 
@@ -26,7 +30,9 @@ To create a task, send a `POST` request to `/tasks` with a JSON body like:
 
 ```json
 {
-  "title": "Learn GitHub API"
+  "title": "Learn GitHub API",
+  "priority": "medium",
+  "status": "new"
 }
 ```
 
@@ -39,12 +45,15 @@ To update an existing task, send a `PUT` request to `/tasks/{task_id}` with a JS
 ```json
 {
   "title": "Learn FastAPI and Pydantic",
-  "completed": true
+  "completed": true,
+  "priority": "high",
+  "status": "done"
 }
 ```
 
 - If `title` is provided, it replaces the existing task title.
 - If `completed` is provided, it updates the completion status.
+- If `priority` or `status` is provided, those values are updated as well.
 
 ## Deleting a task
 
